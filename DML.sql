@@ -92,7 +92,7 @@ VALUES (@dateInput, @performanceIDInput, @locationIDInput);
 SELECT
     Practices.practiceID,
     Practices.date,
-    Performances.name AS "Perfomance Name",
+    Performances.name AS "Performance Name",
     Locations.name AS "Location Name"
 FROM Practices
 LEFT JOIN Performances ON Practices.performanceID = Performances.performanceID
@@ -125,7 +125,7 @@ SELECT
     Dancers.lastName,
     Performances.name AS "Performance Name"
 FROM Performers
-INNER JOIN Dancers ON Performers.dancerID = Dancers.dancerID,
+INNER JOIN Dancers ON Performers.dancerID = Dancers.dancerID
 INNER JOIN Performances ON Performers.performanceID = Performances.performanceID
 WHERE Performers.performanceID = @performanceIDInput;
 
