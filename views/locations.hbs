@@ -1,0 +1,29 @@
+<h2>Locations</h2>
+
+<table class="styled-table">
+  <tr><th>ID</th><th>Name</th><th>Address</th><th>Actions</th></tr>
+  {{#each locations}}
+  <tr>
+    <td>{{this.locationID}}</td>
+    <td>{{this.name}}</td>
+    <td>{{this.address}}</td>
+    <td>
+      <form action="/locations/{{this.locationID}}/edit" method="get" style="display:inline;">
+        <button type="submit" class="btn-edit">Edit</button>
+      </form>
+
+      <form action="/locations/{{this.locationID}}/delete" method="post" style="display:inline;">
+        <button type="submit" class="btn-delete">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<h3>Add New Location</h3>
+<label for="name">Name:</label>
+<input type="text" id="name" name="name" required>
+<label for="address">Address:</label>
+<input type="text" id="address" name="address" required>
+<button id="addLocationBtn">Add Location</button>
+

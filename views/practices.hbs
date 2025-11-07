@@ -1,0 +1,32 @@
+<h2>Practices</h2>
+
+<table class="styled-table">
+  <tr><th>ID</th><th>date</th><th>Location</th><th>Performance</th><th>Actions</th></tr>
+  {{#each practices}}
+  <tr>
+    <td>{{this.practiceID}}</td>
+    <td>{{this.date}}</td>
+    <td>{{this.locationName}}</td>
+    <td>{{this.performanceName}}</td>
+    <td>
+      <form action="/practices/{{this.practiceID}}/edit" method="get" style="display:inline;">
+        <button type="submit" class="btn-edit">Edit</button>
+      </form>
+
+      <form action="/practices/{{this.practiceID}}/delete" method="post" style="display:inline;">
+        <button type="submit" class="btn-delete">Delete</button>
+      </form>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<h3>Add New Practice</h3>
+<label for="date">Date:</label>
+<input type="date" id="date" name="date" required>
+<label for="locationID">Location:</label>
+<input type="number" id="locationID" name="locationID" required>
+<label for="performanceID">Performance:</label>
+<input type="number" id="performanceID" name="performanceID" required>
+<button id="addPracticeBtn">Add Practice</button>
+

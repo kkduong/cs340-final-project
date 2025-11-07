@@ -4,7 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "development": "npx nodemon app.js",
+    "production": "npx forever start app.js",
+    "stop_production": "npx forever stop app.js"
   },
   "repository": {
     "type": "git",
@@ -19,6 +22,8 @@
   "homepage": "https://github.com/kkduong/cs340-final-project#readme",
   "dependencies": {
     "express": "^5.1.0",
-    "express-handlebars": "^8.0.3"
+    "express-handlebars": "^8.0.3",
+    "forever": "^1.0.1",
+    "mysql2": "^3.15.3"
   }
 }
