@@ -70,6 +70,17 @@ app.get('/locations', async (req, res) => {
   }
 });
 
+// ===== dancer_practices =====
+app.get('/dancerpractices', async (req, res) => {
+  try {
+    const [results] = await db.query("SELECT dancerPractices.dancerPracticeID, dancerPractices.mandatory, Dancers.firstName, Dancers.lastName, Practices.date AS practiceDate FROM dancerPractices JOIN Dancers ON dancerPractices.dancerID = Dancers.dancerID JOIN Practices ON dancerPractices.practiceID = Practices.practiceID;");
+    res.render('dancerpractices', { title: 'Dancer Practices', dancerpractices: results });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database query error");
+  }
+});
+
 
 // start server
 app.listen(PORT, () => {
