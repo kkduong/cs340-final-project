@@ -39,8 +39,11 @@ app.get('/dancers', async (req, res) => {
 // ===== performances =====
 app.get('/performances', async (req, res) => {
   try {
-    const [results] = await db.query("SELECT Performances.performanceID, Performances.name, Performances.date, Locations.name AS locationName FROM Performances JOIN Locations ON Performances.locationID = Locations.locationID;");
-    res.render('performances', { title: 'Performances', performances: results });
+    const [performances] = await db.query("SELECT Performances.performanceID, Performances.name, Performances.date, Locations.name AS locationName FROM Performances JOIN Locations ON Performances.locationID = Locations.locationID;");
+
+    const [locations] = await db.query("SELECT locationID, name FROM Locations;");
+
+    res.render('performances', { title: 'Performances', performances, locations});
   } catch (err) {
     console.error(err);
     res.status(500).send("Database query error");
@@ -51,8 +54,14 @@ app.get('/performances', async (req, res) => {
 // ===== practices =====
 app.get('/practices', async (req, res) => {
     try {
-    const [results] = await db.query("SELECT Practices.practiceID, Practices.date, Locations.name AS locationName, Performances.name AS performanceName FROM Practices JOIN Locations ON Practices.locationID = Locations.locationID JOIN Performances ON Practices.performanceID = Performances.performanceID;");
-    res.render('practices', { title: 'Practices', practices: results });
+    const [practices] = await db.query("SELECT Practices.practiceID, Practices.date, Locations.name AS locationName, Performances.name AS performanceName FROM Practices JOIN Locations ON Practices.locationID = Locations.locationID JOIN Performances ON Practices.performanceID = Performances.performanceID;");
+    
+    const [performances] = await db.query("SELECT performanceID, name FROM Performances;");
+
+    const [locations] = await db.query("SELECT locationID, name FROM Locations;");
+    
+    res.render('practices', { title: 'Practices', practices, performances, locations });
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Database query error");

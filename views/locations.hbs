@@ -7,22 +7,37 @@
     <td>{{this.name}}</td>
     <td>{{this.address}}</td>
     <td>
-      <form action="/locations/{{this.locationID}}/edit" method="get" style="display:inline;">
-        <button type="submit" class="btn-edit">Edit</button>
-      </form>
-
-      <form action="/locations/{{this.locationID}}/delete" method="post" style="display:inline;">
         <button type="submit" class="btn-delete">Delete</button>
-      </form>
     </td>
   </tr>
   {{/each}}
 </table>
 
+<div class="form-section">
+
 <h3>Add New Location</h3>
+<form id="addLocationForm" action="/add-location" method="POST">
 <label for="name">Name:</label>
 <input type="text" id="name" name="name" required>
 <label for="address">Address:</label>
 <input type="text" id="address" name="address" required>
 <button id="addLocationBtn">Add Location</button>
+</form>
 
+<h3>Edit a Location</h3>
+<form id="editLocationForm" action="/edit-location" method="POST">
+<label for="locationID">Select Location to Edit:</label>
+<select id="locationID" name="locationID" required>
+  {{#each locations}}
+    <option value="{{this.locationID}}">
+      {{this.name}} - {{this.address}}
+    </option>
+  {{/each}}
+</select>
+<label for="newName">New Name:</label>
+<input type="text" id="newName" name="newName">
+<label for="newAddress">New Address:</label>
+<input type="text" id="newAddress" name="newAddress">
+<button id="editLocationBtn">Edit Location</button>
+</form>
+</div>
