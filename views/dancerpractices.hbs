@@ -2,7 +2,7 @@
 
 <table class="styled-table">
   <tr><th>Mandatory?</th><th>First Name</th><th>Last Name</th><th>Practice Date</th><th>Actions</th></tr>
-  {{#each dancer_practices}}
+  {{#each dancerpractices}}
   <tr>
     <td>{{this.mandatory}}</td>
     <td>{{this.firstName}}</td>
@@ -21,10 +21,28 @@
   {{/each}}
 </table>
 
-<h3>Add New Location</h3>
-<label for="name">Name:</label>
-<input type="text" id="name" name="name" required>
-<label for="address">Address:</label>
-<input type="text" id="address" name="address" required>
-<button id="addLocationBtn">Add Location</button>
+<h3>Add New Dancer's Practice</h3>
+
+<form id="addDancerPracticeForm" action="/add-dancerpractice" method="POST">
+  <label for="dancerID">Select Dancer:</label>
+  <select id="dancerID" name="dancerID" required>
+    {{#each dancers}}
+      <option value="{{this.dancerID}}">
+        {{this.firstName}} {{this.lastName}}
+      </option>
+    {{/each}}
+  </select>
+
+  <label for="practiceID">Select Practice:</label>
+  <select id="practiceID" name="practiceID" required>
+    {{#each practices}}
+      <option value="{{this.practiceID}}">
+        {{this.date}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button type="submit" id="addDancerPracticeBtn">Add Dancer's Practice</button>
+</form>
+
 

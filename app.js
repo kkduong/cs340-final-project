@@ -73,8 +73,30 @@ app.get('/locations', async (req, res) => {
 // ===== dancer_practices =====
 app.get('/dancerpractices', async (req, res) => {
   try {
-    const [results] = await db.query("SELECT dancerPractices.dancerPracticeID, dancerPractices.mandatory, Dancers.firstName, Dancers.lastName, Practices.date AS practiceDate FROM dancerPractices JOIN Dancers ON dancerPractices.dancerID = Dancers.dancerID JOIN Practices ON dancerPractices.practiceID = Practices.practiceID;");
-    res.render('dancerpractices', { title: 'Dancer Practices', dancerpractices: results });
+    const [dancerpractices] = await db.query("SELECT Dancer_Practices.dancerPracticeID, Dancer_Practices.mandatory, Dancers.firstName, Dancers.lastName, Practices.date AS practiceDate FROM Dancer_Practices JOIN Dancers ON Dancer_Practices.dancerID = Dancers.dancerID JOIN Practices ON Dancer_Practices.practiceID = Practices.practiceID;");
+
+    const [dancers] = await db.query("SELECT dancerID, firstName, lastName FROM Dancers;");
+
+    const [practices] = await db.query("SELECT practiceID, date FROM Practices;");
+
+    res.render('dancerpractices', { title: 'Dancer Practices', dancerpractices, dancers, practices});
+  } catch (err) {
+    console.error(err);
+    res.status(500).send("Database query error");
+  }
+});
+
+// ===== performers =====
+app.get('/performers', async (req, res) => {
+  try {
+    const [performers] = await db.query("SELECT Performers.performerID, Dancers.firstName, Dancers.lastName, Performances.name AS performanceName FROM Performers JOIN Dancers ON Performers.dancerID = Dancers.dancerID JOIN Performances ON Performers.performanceID = Performances.performanceID;");
+
+    const [dancers] = await db.query("SELECT dancerID, firstName, lastName FROM Dancers;");
+
+    const [performances] = await db.query("SELECT performanceID, name FROM Performances;");
+
+    res.render('performers', { title: 'Performers', performers, dancers, performances});
+
   } catch (err) {
     console.error(err);
     res.status(500).send("Database query error");
