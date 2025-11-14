@@ -1,0 +1,89 @@
+<h2>Dancer's Practices</h2>
+
+<table class="styled-table">
+  <tr><th>Mandatory?</th><th>First Name</th><th>Last Name</th><th>Practice Date</th><th>Actions</th></tr>
+  {{#each dancerpractices}}
+  <tr>
+    <td>
+      {{#if this.mandatory}}
+        Yes
+      {{else}}
+        No
+      {{/if}}
+    </td>
+    <td>{{this.firstName}}</td>
+    <td>{{this.lastName}}</td>
+    <td>{{this.practiceDate}}</td>
+    <td>
+        <button type="submit" class="btn-delete">Delete</button>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<div class="form-section">
+
+<h3>Add New Dancer's Practice</h3>
+
+<form id="addDancerPracticeForm" action="/add-dancerpractice" method="POST">
+  <label for="dancerID">Select Dancer:</label>
+  <select id="dancerID" name="dancerID" required>
+    {{#each dancers}}
+      <option value="{{this.dancerID}}">
+        {{this.firstName}} {{this.lastName}}
+      </option>
+    {{/each}}
+  </select>
+
+  <label for="practiceID">Select Practice:</label>
+  <select id="practiceID" name="practiceID" required>
+    {{#each practices}}
+      <option value="{{this.practiceID}}">
+        {{this.date}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button type="submit" id="addDancerPracticeBtn">Add Dancer's Practice</button>
+</form>
+
+<h3>Edit a Dancer's Practice</h3>
+<form id="editDancerPracticeForm" action="/edit-dancerpractice" method="POST">
+  <label for="dancerPracticeID">Select Dancer's Practice to Edit:</label>
+  <select id="dancerPracticeID" name="dancerPracticeID" required>
+    {{#each dancerpractices}}
+      <option value="{{this.dancerPracticeID}}">
+        {{this.firstName}} {{this.lastName}} - {{this.practiceDate}}
+      </option>
+    {{/each}}
+  </select> 
+
+  <label for="newMandatory">Mandatory?</label>
+  <select id="newMandatory" name="newMandatory">
+    <option value="true">Yes</option>
+    <option value="false">No</option>
+  </select>
+
+  <label for="newDancer">New Dancer:</label>
+  <select id="newDancer" name="newDancer">
+    {{#each dancers}}
+      <option value="{{this.dancerID}}">
+        {{this.firstName}} {{this.lastName}}
+      </option>
+    {{/each}}
+  </select>
+
+  <label for="newPractice">New Practice:</label>
+  <select id="newPractice" name="newPractice">
+    {{#each practices}}
+      <option value="{{this.practiceID}}">
+        {{this.date}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button id="editDancerPracticeBtn">Edit Dancer's Practice</button>
+</form>
+
+</div>
+

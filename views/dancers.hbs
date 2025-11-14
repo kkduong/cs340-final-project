@@ -1,28 +1,23 @@
 <h2>Dancers</h2>
 
 <table class = "styled-table">
-  <tr><th>ID</th><th>First Name</th><th>Last Name</th><th>Email</th><th>Actions</th></tr>
+  <tr><th>First Name</th><th>Last Name</th><th>Email</th><th>Actions</th></tr>
   {{#each dancers}}
   <tr>
-    <td>{{this.dancerID}}</td>
     <td>{{this.firstName}}</td>
     <td>{{this.lastName}}</td>
     <td>{{this.email}}</td>
     <td>
-      <form action="/dancers/{{this.dancerID}}/edit" method="get" style="display:inline;">
-        <button type="submit" class="btn-edit">Edit</button>
-      </form>
-
-      <form action="/dancers/{{this.dancerID}}/delete" method="post" style="display:inline;">
         <button type="submit" class="btn-delete">Delete</button>
-      </form>
     </td>
   </tr>
   {{/each}}
 </table>
 
+<div class="form-section">
 
 <h3>Add New Dancer</h3>
+<form id="addDancerForm" action="/add-dancer" method="POST">
 <label for="firstName">First Name:</label>
 <input type="text" id="firstName" name="firstName" required>
 <label for="lastName">Last Name:</label>
@@ -30,3 +25,25 @@
 <label for="email">Email:</label>
 <input type="email" id="email" name="email" required>
 <button id="addDancerBtn">Add Dancer</button>
+</form>
+
+<h3>Edit a Dancer</h3>
+<form id="editDancerForm" action="/edit-dancer" method="POST">
+<label for="dancerID">Select Dancer to Edit:</label>
+<select id="dancerID" name="dancerID" required>
+  {{#each dancers}}
+    <option value="{{this.dancerID}}">
+      {{this.firstName}} {{this.lastName}} - {{this.email}}
+    </option>
+  {{/each}}
+</select>
+<label for="newFirstName">New First Name:</label>
+<input type="text" id="newFirstName" name="newFirstName">
+<label for="newLastName">New Last Name:</label>
+<input type="text" id="newLastName" name="newLastName">
+<label for="newEmail">New Email:</label>
+<input type="email" id="newEmail" name="newEmail">
+<button id="editDancerBtn">Edit Dancer</button>
+</form>
+
+</div>

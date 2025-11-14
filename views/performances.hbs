@@ -1,31 +1,55 @@
 <h2>Performances</h2>
 
 <table class="styled-table">
-  <tr><th>ID</th><th>Name</th><th>Date</th><th>Location</th><th>Actions</th></tr>
+  <tr><th>Name</th><th>Date</th><th>Location</th><th>Actions</th></tr>
   {{#each performances}}
   <tr>
-    <td>{{this.performanceID}}</td>
     <td>{{this.name}}</td>
     <td>{{this.date}}</td>
     <td>{{this.locationName}}</td>
     <td>
-      <form action="/performances/{{this.performanceID}}/edit" method="get" style="display:inline;">
-        <button type="submit" class="btn-edit">Edit</button>
-      </form>
-
-      <form action="/performances/{{this.performanceID}}/delete" method="post" style="display:inline;">
         <button type="submit" class="btn-delete">Delete</button>
-      </form>
     </td>
   </tr>
   {{/each}}
 </table>
 
-<h3>Add New Performance</h3>
-<label for="name">Name:</label>
-<input type="text" id="name" name="name" required>
-<label for="date">Date:</label>
-<input type="date" id="date" name="date" required>
-<label for="locationID">Location:</label>
-<input type="number" id="locationID" name="locationID" required>
-<button id="addPerformanceBtn">Add Performance</button>
+
+<div class="form-section">
+  <h3>Add New Performance</h3>
+  <form id="addPerformanceForm" action="/add-performance" method="POST">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+    <label for="date">Date:</label>
+    <input type="date" id="date" name="date" required>
+    <label for="locationID">Location:</label>
+    <input type="number" id="locationID" name="locationID" required>
+    <button id="addPerformanceBtn">Add Performance</button>
+  </form>
+
+  <h3>Edit a Performance</h3>
+  <form id="editPerformanceForm" action="/edit-performance" method="POST">
+  <label for="performanceID">Select Performance to Edit:</label>
+  <select id="performanceID" name="performanceID" required>
+    {{#each performances}}
+      <option value="{{this.performanceID}}">
+        {{this.name}} - {{this.date}} - {{this.locationName}}
+      </option>
+    {{/each}}
+  </select>
+  <label for="newName">New Name:</label>
+  <input type="text" id="newName" name="newName">
+  <label for="newDate">New Date:</label>
+  <input type="date" id="newDate" name="newDate">
+  <label for="newLocation">New Location:</label>
+  <select id="newLocation" name="newLocation">
+    {{#each locations}}
+      <option value="{{this.locationID}}">
+        {{this.name}}
+      </option>
+    {{/each}}
+  </select>
+  <button id="editPerformanceBtn">Edit Performance</button>
+  </form>
+
+</div>

@@ -1,0 +1,74 @@
+<h2>Performers</h2>
+
+<table class="styled-table">
+  <tr><th>First Name</th><th>Last Name</th><th>Performance</th><th>Actions</th></tr>
+  {{#each performers}}
+  <tr>
+    <td>{{this.firstName}}</td>
+    <td>{{this.lastName}}</td>
+    <td>{{this.performanceName}}</td>
+    <td>
+        <button type="submit" class="btn-delete">Delete</button>
+    </td>
+  </tr>
+  {{/each}}
+</table>
+
+<div class="form-section">
+<h3>Add New Performer</h3>
+
+<form id="addPerformerForm" action="/add-performer" method="POST">
+  <label for="dancerID">Select Dancer:</label>
+  <select id="dancerID" name="dancerID" required>
+    {{#each dancers}}
+      <option value="{{this.dancerID}}">
+        {{this.firstName}} {{this.lastName}}
+      </option>
+    {{/each}}
+  </select>
+
+  <label for="performanceID">Select Performance:</label>
+  <select id="performanceID" name="performanceID" required>
+    {{#each performances}}
+      <option value="{{this.performanceID}}">
+        {{this.name}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button type="submit" id="addPerformerBtn">Add Performer</button>
+</form>
+
+<h3>Edit a Performer</h3>
+<form id="editPerformerForm" action="/edit-performer" method="POST">
+  <label for="performerID">Select Performer to Edit:</label>
+  <select id="performerID" name="performerID" required>
+    {{#each performers}}
+      <option value="{{this.performerID}}">
+        {{this.firstName}} {{this.lastName}} - {{this.performanceName}}
+      </option>
+    {{/each}}
+  </select> 
+
+  <label for="newDancerID">Select New Dancer:</label>
+  <select id="newDancerID" name="newDancerID">
+    {{#each dancers}}
+      <option value="{{this.dancerID}}">
+        {{this.firstName}} {{this.lastName}}
+      </option>
+    {{/each}}
+  </select>
+
+  <label for="newPerformanceID">Select New Performance:</label>
+  <select id="newPerformanceID" name="newPerformanceID">
+    {{#each performances}}
+      <option value="{{this.performanceID}}">
+        {{this.name}}
+      </option>
+    {{/each}}
+  </select>
+
+  <button id="editPerformerBtn">Edit Performer</button>
+</form>
+
+</div>
