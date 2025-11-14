@@ -15,12 +15,20 @@
 </table>
 
 <div class="form-section">
+
 <h3>Add New Practice</h3>
-<label for="date">Date:</label>
-<input type="date" id="date" name="date" required>
-<label for="locationID">Location:</label>
-<input type="number" id="locationID" name="locationID" required>
-<label for="performanceID">Select Performance:</label>
+<form id="addPracticeForm" action="/add-practice" method="POST">
+  <label for="date">Date:</label>
+  <input type="date" id="date" name="date" required>
+  <label for="locationID">Location:</label>
+  <select id="locationID" name="locationID" required>
+    {{#each locations}}
+      <option value="{{this.locationID}}">
+        {{this.name}}
+      </option>
+    {{/each}}
+  </select>
+  <label for="performanceID">Select Performance:</label>
 <select id="performanceID" name="performanceID" required>
   {{#each performances}}
     <option value="{{this.performanceID}}">
@@ -29,6 +37,7 @@
   {{/each}}
 </select>
 <button id="addPracticeBtn">Add Practice</button>
+</form>
 
 <h3>Edit a Practice</h3>
 <form id="editPracticeForm" action="/edit-practice" method="POST">

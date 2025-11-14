@@ -82,11 +82,11 @@ app.get('/locations', async (req, res) => {
 // ===== dancer_practices =====
 app.get('/dancerpractices', async (req, res) => {
   try {
-    const [dancerpractices] = await db.query("SELECT Dancer_Practices.dancerPracticeID, Dancer_Practices.mandatory, Dancers.firstName, Dancers.lastName, Practices.date AS practiceDate FROM Dancer_Practices JOIN Dancers ON Dancer_Practices.dancerID = Dancers.dancerID JOIN Practices ON Dancer_Practices.practiceID = Practices.practiceID;");
+    const [dancerpractices] = await db.query("SELECT Dancer_Practices.dancerPracticeID, Dancer_Practices.mandatory, Dancers.firstName, Dancers.lastName, Practices.date AS practiceDate, Locations.name AS locationName FROM Dancer_Practices JOIN Dancers ON Dancer_Practices.dancerID = Dancers.dancerID JOIN Practices ON Dancer_Practices.practiceID = Practices.practiceID JOIN Locations ON Practices.locationID = Locations.locationID;");
 
     const [dancers] = await db.query("SELECT dancerID, firstName, lastName FROM Dancers;");
 
-    const [practices] = await db.query("SELECT practiceID, date FROM Practices;");
+    const [practices] = await db.query("SELECT Practices.practiceID, Practices.date, Locations.name AS locationName FROM Practices JOIN Locations ON Practices.locationID = Locations.locationID;");
 
     res.render('dancerpractices', { title: 'Dancer Practices', dancerpractices, dancers, practices});
   } catch (err) {
